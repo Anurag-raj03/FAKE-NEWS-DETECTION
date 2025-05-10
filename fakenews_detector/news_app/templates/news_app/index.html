@@ -1,0 +1,30 @@
+{% extends 'news_app/base.html' %}
+
+{% block content %}
+  <div class="container my-5">
+    <h1 class="text-center mb-4 display-4 fw-bold">Fake News Detector 🚨</h1>
+    
+    <form method="post" enctype="multipart/form-data" class="bg-light p-4 rounded shadow">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="{{ form.news.id_for_label }}" class="form-label">News Text</label>
+        {{ form.news }}
+      </div>
+      <div class="mb-3">
+        <label for="{{ form.file.id_for_label }}" class="form-label">Upload File</label>
+        {{ form.file }}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+    {% if is_fake == True %}
+      <div class="alert alert-danger mt-4 rounded-pill" role="alert">
+        This news is fake 🤥
+      </div>
+    {% elif is_fake == False %}
+      <div class="alert alert-success mt-4 rounded-pill" role="alert">
+        This news is real 🌎
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
